@@ -52,7 +52,7 @@ jobs:
             git checkout main &&
             git fetch --all &&
             git reset --hard origin/main &&
-            git pull origin main &&
+            git pull origin main && docker stop $(docker ps -q) &&
             docker build -t 1528762/webapp:1.0 . && docker run -d -p 5000:5000 1528762/webapp:1.0 &&
             docker image prune -a
           '
