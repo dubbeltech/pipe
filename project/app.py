@@ -1,17 +1,20 @@
 import requests
 from flask import jsonify, Flask
-from flask_crontab import Crontab
+from apscheduler.schedulers.background import BackgroundScheduler
 
 API_TOKEN = '3381c830a1eb4a692b197c573b3ea771760e9c76'
 COMPANY_DOMAIN = 'dubbeltech2'
 
 app = Flask(__name__)
-crontab = Crontab(app)
-
 gist_database = []
 user_database = []
 deal_url = f'https://{COMPANY_DOMAIN}.pipedrive.com/api/v1/deals?api_token={API_TOKEN}'
 
+@app.before_first_request
+def init_scheduler():
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=my_scheduled_job, trigger="interval", minutes=180)
+    scheduler.start()
 
 @app.route('/<string:username>', methods = ['GET'])
 def get_gists(username):
@@ -46,11 +49,12 @@ def favicon():
     return { "welcome": "supress it"}
 
 
-@crontab.job(minute="1")
+#@crontab.job(minute="1")
 def my_scheduled_job():
 
-    requests.get(f"127.0.0.1:8000/{user_database[-1]}").json()
+  requests.get(f"http://127.0.0.1:5000/{user_database[-1]}").json()
 
 
 if __name__ == "__main__":
-     app.run(host="0.0.0.0", debug=True)
+    init_scheduler()
+    app.run(host="0.0.0.0", debug=True)
