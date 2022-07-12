@@ -1,5 +1,5 @@
 # Pipedrive Task
-
+---
 ## Getting started
 Pipedrive Challenge - A Test Task for Pipedrive
 
@@ -23,12 +23,14 @@ It was developed using python, Flask to define interfaces for API methods and VS
 
 - source pipedrive-env/bin/activate
 
--  git clone https://github.com/dubbeltech/pipe.git 
+- git clone https://github.com/dubbeltech/pipe.git
 
 - export FLASK_APP=project/app
 - flask run
 
-we can access the application at 127.0.0.1:5000 or localhost:5000
+we can access the application at 
+>127.0.0.1:5000  
+localhost:5000
 
 To get an output 127.0.0.1:5000/<username> or localhost:5000/<username>
   
@@ -53,6 +55,9 @@ The Github Actions CI/CD pipeline deploy the project and to aws cloud:
   
  To deploy the project:
  click on Action tab and run the pipeline
+
+ Go to aws and use the ipv4 public address or the DNS
+ > Run the pipeline and accesss using the AWS_DNS on port 5000/username
   
 ## Project Tools:
 - python 3.*
